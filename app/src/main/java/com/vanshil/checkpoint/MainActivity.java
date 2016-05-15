@@ -96,19 +96,20 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Go
                         .position(business.getLatLng())
                         .icon(BitmapDescriptorFactory.fromResource(R.mipmap.location_icon_blue)));
             }
+            if(firstLocation){
+                map.addMarker(new MarkerOptions().position(latlng).icon(BitmapDescriptorFactory.fromResource(R.mipmap.location_icon_yellow)));
+                range = map.addCircle(new CircleOptions()
+                        .center(latlng)
+                        .radius(2000)
+                        .strokeColor(getResources().getColor(R.color.colorAccent))
+                        .fillColor(getResources().getColor(R.color.yelllow_alpha)));
+                seekBar.setProgress(2000);
+                runText.setText(String.format("2.00 km"));
+                map.animateCamera(CameraUpdateFactory.newLatLngZoom(latlng, 12));
+                firstLocation = false;
+            }
         }
-        if(firstLocation){
-            map.addMarker(new MarkerOptions().position(latlng).icon(BitmapDescriptorFactory.fromResource(R.mipmap.location_icon_yellow)));
-            range = map.addCircle(new CircleOptions()
-                    .center(latlng)
-                    .radius(2000)
-                    .strokeColor(getResources().getColor(R.color.colorAccent))
-                    .fillColor(getResources().getColor(R.color.yelllow_alpha)));
-            seekBar.setProgress(2000);
-            runText.setText(String.format("2.00 km"));
-            map.animateCamera(CameraUpdateFactory.newLatLngZoom(latlng, 12));
-            firstLocation = false;
-        }
+
     }
 
     @Override
