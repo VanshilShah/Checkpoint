@@ -94,10 +94,10 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Go
             for(BusinessResponse.BusinessResult business : businesses){
                 map.addMarker(new MarkerOptions()
                         .position(business.getLatLng())
-                        .icon(BitmapDescriptorFactory.fromResource(R.mipmap.location_icon_blue)));
+                        .icon(BitmapDescriptorFactory.fromResource(R.mipmap.location_icon_blue_small)));
             }
             if(firstLocation){
-                map.addMarker(new MarkerOptions().position(latlng).icon(BitmapDescriptorFactory.fromResource(R.mipmap.location_icon_yellow)));
+                map.addMarker(new MarkerOptions().position(latlng).icon(BitmapDescriptorFactory.fromResource(R.mipmap.location_icon_yellow_small)));
                 range = map.addCircle(new CircleOptions()
                         .center(latlng)
                         .radius(2000)
