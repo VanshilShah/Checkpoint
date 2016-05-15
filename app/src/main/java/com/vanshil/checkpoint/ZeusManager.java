@@ -1,13 +1,22 @@
 package com.vanshil.checkpoint;
 
+import android.util.Log;
+
+import com.google.android.gms.maps.model.LatLng;
 import com.vanshil.checkpoint.network.BusinessResponse;
 import com.vanshil.checkpoint.network.LoggingInterceptor;
 import com.vanshil.checkpoint.network.ZeusService;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -73,6 +82,46 @@ public class ZeusManager {
         };
         Call<BusinessResponse> zeusCall = zeusService.getBusinesses();
         zeusCall.enqueue(businessCallback);
+    }
+
+    public void postLocation(String logID, LatLng latlng){
+        //LocationPostWrapper locationPostWrapper = new LocationPostWrapper(logID, latlng);
+        /*Call<LocationResponse> locationCall = zeusService.postLocation(logID, latlng.latitude + "," + latlng.longitude);
+        locationCall.enqueue(new Callback<LocationResponse>() {
+            @Override
+            public void onResponse(Call<LocationResponse> call, Response<LocationResponse> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<LocationResponse> call, Throwable t) {
+
+            }
+        });*/
+        String latlngStr = latlng.latitude + "," + latlng.longitude;
+        OkHttpClient client = new OkHttpClient();
+        MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
+        RequestBody body = null;
+        try {
+            String encodedStr = URLEncoder.encode("[{\"geoip.location\":\"" + latlngStr + "\"}]", "UTF-8");
+            Log.d("Location Post", encodedStr);
+            body = RequestBody.create(mediaType, "logs=" + encodedStr);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        Request request = new Request.Builder()
+                        .url("http://api.site1.ciscozeus.io/logs/1ce4e873/" + logID)
+                        .post(body)
+                        .addHeader("cache-control", "no-cache")
+                        .addHeader("postman-token", "21ed52f7-7740-23c2-de4f-eeba0af11ff3")
+                        .addHeader("content-type", "application/x-www-form-urlencoded")
+                        .build();
+
+        try {
+            okhttp3.Response response = client.newCall(request).execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void unregister(Listener listener){

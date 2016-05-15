@@ -65,8 +65,10 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Go
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                range.setRadius(progress);
-                runText.setText( (progress/500.0) + " km run");
+                if(range != null){
+                    range.setRadius(progress);
+                    runText.setText( (progress/500.0) + " km run");
+                }
             }
 
             @Override

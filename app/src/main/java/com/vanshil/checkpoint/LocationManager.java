@@ -16,6 +16,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +31,9 @@ public class LocationManager {
     GoogleApiClient mGoogleApiClient;
 
     private static LocationManager instance;
+    public boolean pingLocation = false;
+
+    Location location;
 
     public static LocationManager getInstance(Context context) {
         if (instance == null) {
@@ -38,11 +42,11 @@ public class LocationManager {
 
         return instance;
     }
-
     private LocationManager(final Context context) {
         final LocationListener locationListener = new LocationListener() {
             @Override
-            public void onLocationChanged(Location location) {
+            public void onLocationChanged(Location newLocation) {
+                location = newLocation;
                 Log.d(TAG, "Location Found: " + location.getLatitude() + ", " + location.getLongitude());
                 notifyLocationChanged(location);
             }
@@ -58,7 +62,7 @@ public class LocationManager {
                             mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
                             if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                                if(context instanceof Activity){
+                                if (context instanceof Activity) {
                                     ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 0);
                                 }
                                 return;
@@ -84,6 +88,10 @@ public class LocationManager {
                     .build();
         }
         listeners = new ArrayList<>();
+    }
+
+    public LatLng getLocation(){
+        return new LatLng(location.getLatitude(), location.getLongitude());
     }
 
     public void onResume(){

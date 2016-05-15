@@ -6,10 +6,10 @@ import android.location.Location;
 import android.net.Uri;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.vanshil.checkpoint.network.BusinessResponse;
@@ -52,12 +52,12 @@ public class SelectedActivity extends BaseActivity {
         changed = false;
 
         //initialize nfcAdapter if NFC is turned on
-        mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
+      /*  mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
         if (mNfcAdapter == null) {
             Toast.makeText(this, "NFC is not available", Toast.LENGTH_LONG).show();
             finish();
             return;
-        }
+        }*/
 
         if(getIntent().hasExtra(EXTRA_SELECTED_BUSINESS)){
             business = (BusinessResponse.BusinessResult) getIntent().getSerializableExtra(EXTRA_SELECTED_BUSINESS);
@@ -93,12 +93,38 @@ public class SelectedActivity extends BaseActivity {
 
 
         };
+        startLocationThread();
 
 //        rewardAmountTextview.setText(business.toString());
 
 
     }
+    private void startLocationThread(){
+        locationManager.pingLocation = true;
+        final String logPath = "run-" + System.currentTimeMillis() + "";
+        final Context context = this;
+        final Thread thread = new Thread(new Runnable()
+        {
 
+            final int MIN_INTERVAL = 4 * 1000;
+            long lastMessageChecked = System.currentTimeMillis();
+            @Override
+            public void run(){
+                int count = 1;
+                while (locationManager.pingLocation){
+                    if(System.currentTimeMillis() - lastMessageChecked > MIN_INTERVAL){
+                        lastMessageChecked = System.currentTimeMillis();
+                        zeusManager.postLocation(logPath, LocationManager.getInstance(context).getLocation());
+                        Log.d("Location Posting Thread", "Tried to Post Location");
+                    }
+                    count++;
+                }
+                Log.d("MESSAGE CHECKING THREAD", "STOPPED");
+            }
+        });
+        thread.start();
+        Log.d("MESSAGE CHECKING THREAD", "STARTED");
+    }
     public void updateRewardAmount(double distance ){
         double amount = distance*0.05*2 ;
         rewardAmountTextview.setText("Reward: $ " + String.format("%.2f", amount));

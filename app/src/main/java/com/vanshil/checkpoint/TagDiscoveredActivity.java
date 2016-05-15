@@ -1,7 +1,7 @@
 package com.vanshil.checkpoint;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -16,6 +16,7 @@ public class TagDiscoveredActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tag_discovered);
         businessResult = (BusinessResponse.BusinessResult) new WriteObjectFile(this).readObject("selected_business");
+        LocationManager.getInstance(this).pingLocation = false;
     }
 
     @Override
