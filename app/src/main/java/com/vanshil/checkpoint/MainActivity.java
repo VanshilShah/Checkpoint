@@ -65,7 +65,7 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Go
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 range.setRadius(progress);
-                runText.setText((int) (progress / 500) + " km run");
+                runText.setText( (progress/500.0) + " km run");
             }
 
             @Override
@@ -131,7 +131,6 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Go
         Intent intent = new Intent(getApplicationContext(), HistoryActivity.class);
         startActivity(intent);
         return super.onOptionsItemSelected(item);
-
 
     }
 

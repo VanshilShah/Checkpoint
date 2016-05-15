@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/seekbar"
         android:layout_alignParentRight="true"
-        android:text="0.5 km"
+        android:text="0.5 km run"
         android:background="@color/text_background"
         android:textSize="16sp"
         android:layout_margin="20dp"

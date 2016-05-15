@@ -48,6 +48,15 @@ public class BusinessResponse implements Serializable {
             return location;
         }
 
+        @Override
+        public String toString() {
+            return "BusinessResult{" +
+                    "timestamp='" + timestamp + '\'' +
+                    ", name='" + name + '\'' +
+                    ", location='" + location + '\'' +
+                    '}';
+        }
+
         public LatLng getLatLng(){
             int commaIndex = location.indexOf(",");
             double lat = Double.parseDouble(location.substring(0, commaIndex));

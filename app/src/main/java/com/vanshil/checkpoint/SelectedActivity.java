@@ -2,12 +2,14 @@ package com.vanshil.checkpoint;
 
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.vanshil.checkpoint.network.BusinessResponse;
 
 import butterknife.BindView;
@@ -27,6 +29,7 @@ public class SelectedActivity extends BaseActivity {
     NfcAdapter mNfcAdapter;
 
     private BusinessResponse.BusinessResult business;
+    private double dist;
 
     public static void start(Context context, BusinessResponse.BusinessResult selectedBusiness){
         Intent intent = new Intent(context, SelectedActivity.class);
@@ -54,19 +57,44 @@ public class SelectedActivity extends BaseActivity {
             writeObjectFile.writeObject(business, "selected_business");
         }
 
+        locationListener = new LocationManager.Listener() {
 
-        updateRewardAmount(15.5);
-        updateRunningDistance(15.5);
+            @Override
+            public void onLocationChanged(Location location) {
+
+
+                double businessLat = business.getLatLng().latitude;
+                double businessLon = business.getLatLng().longitude;
+                double currentLat = location.getLatitude();
+                double currentLon = location.getLongitude();
+
+                double diffA = (businessLat-currentLat)*111;
+                double diffB =  (businessLon-currentLon)*111;
+
+                dist = Math.sqrt(diffA*diffA + diffB*diffB);
+                updateRewardAmount(dist);
+                updateRunningDistance(dist, business.getName());
+
+
+            }
+
+
+        };
+
+
+
+//        rewardAmountTextview.setText(business.toString());
+
 
     }
 
-    public void updateRewardAmount(double distance){
+    public void updateRewardAmount(double distance ){
         double amount = distance*0.05 ;
-        rewardAmountTextview.setText("You will earn: $" + amount);
+        rewardAmountTextview.setText("You will earn: $ " +String.format("%.2f", amount));
     }
 
-    public void updateRunningDistance(double distance){
-        runningDestinationTextview.setText(distance + " km");
+    public void updateRunningDistance(double distance, String name){
+        runningDestinationTextview.setText(name+ ": "+ String.format("%.3f",distance) + " km");
     }
 
 
