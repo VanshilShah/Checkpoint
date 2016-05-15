@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -44,6 +47,7 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Go
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
         map = null;
         mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -116,10 +120,29 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Go
         return false;
     }
 
-    public void onTempButtonClick (View view){
+    //SEND INFO WITH THIS INTENT FOR THE SELECTED ACTIVITY
+    public void onPointerClicked (View view){
         Intent intent = new Intent(getApplicationContext(), SelectedActivity.class);
         startActivity(intent);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent = new Intent(getApplicationContext(), HistoryActivity.class);
+        startActivity(intent);
+        return super.onOptionsItemSelected(item);
+
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater=getMenuInflater();
+        inflater.inflate(R.menu.menu_tag_discovered, menu);
+
+
+        return true;//return true so that the menu pop up is opened
+
+    }
 
 }

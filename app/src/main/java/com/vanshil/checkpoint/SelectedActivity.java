@@ -39,9 +39,6 @@ public class SelectedActivity extends BaseActivity {
     @BindView(R.id.running_destination_textview)
     TextView runningDestinationTextview;
 
-    @BindView(R.id.arrived_textView)
-    TextView arrivedTextview;
-
     NfcAdapter mNfcAdapter;
 
 
