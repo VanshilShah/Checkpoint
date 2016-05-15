@@ -1,9 +1,5 @@
 package com.vanshil.checkpoint;
 
-import android.content.Context;
-
-import com.google.android.gms.location.LocationListener;
-
 /**
  * Created by Vanshil on 2016-05-14.
  */
