@@ -4,18 +4,43 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.vanshil.checkpoint.network.BusinessResponse;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class TagDiscoveredActivity extends AppCompatActivity {
 
     BusinessResponse.BusinessResult businessResult;
 
+    @BindView(R.id.arrived_textView)
+    TextView arrivedTextView;
+
+    @BindView(R.id.arrived_image)
+    ImageView arrivedImage;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tag_discovered);
+        ButterKnife.bind(this);
+
         businessResult = (BusinessResponse.BusinessResult) new WriteObjectFile(this).readObject("selected_business");
+
+        setTitle("Checkpoint: "+businessResult.getName());
+        Picasso.with(getApplicationContext()).load(businessResult.getUrl()).into(arrivedImage);
+        arrivedTextView.setText("You've made it to " + businessResult.getName());
+
+
+
+
     }
 
     @Override

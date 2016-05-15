@@ -57,8 +57,6 @@ public class SelectedActivity extends BaseActivity {
         setContentView(R.layout.activity_selected);
         ButterKnife.bind(this);
 
-
-
         changed = false;
 
         //initialize nfcAdapter if NFC is turned on
