@@ -48,4 +48,14 @@
         android:textColor="@color/colorPrimaryDark"
         android:clickable="false" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/textView2"
+        android:layout_below="@+id/running_destination_textview"
+        android:layout_alignLeft="@+id/running_destination_textview"
+        android:layout_alignStart="@+id/running_destination_textview" />
+
 </RelativeLayout>
