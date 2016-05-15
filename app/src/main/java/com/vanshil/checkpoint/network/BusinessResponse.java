@@ -2,7 +2,6 @@ package com.vanshil.checkpoint.network;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 import java.util.List;
@@ -29,12 +28,13 @@ public class BusinessResponse implements Serializable {
         String timestamp;
 
         @Expose
-        @SerializedName("Name")
         String name;
 
         @Expose
-        @SerializedName("geoip.location")
-        String location;
+        String latitude;
+
+        @Expose
+        String longitude;
 
         public String getTimestamp() {
             return timestamp;
@@ -44,14 +44,17 @@ public class BusinessResponse implements Serializable {
             return name;
         }
 
-        public String getLocation() {
-            return location;
+        public String getLatitude() {
+            return latitude;
+        }
+
+        public String getLongitude() {
+            return longitude;
         }
 
         public LatLng getLatLng(){
-            int commaIndex = location.indexOf(",");
-            double lat = Double.parseDouble(location.substring(0, commaIndex));
-            double lon = Double.parseDouble(location.substring(commaIndex + 1));
+            double lat = Double.parseDouble(latitude);
+            double lon = Double.parseDouble(longitude);
             return new LatLng(lat, lon);
 
         }

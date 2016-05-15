@@ -71,7 +71,7 @@ public class ZeusManager {
 
             }
         };
-        Call<BusinessResponse> zeusCall = zeusService.getBusinesses("location-2016-05-15", "geoip.location", "json");
+        Call<BusinessResponse> zeusCall = zeusService.getBusinesses();
         zeusCall.enqueue(businessCallback);
     }
 
