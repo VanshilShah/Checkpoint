@@ -117,6 +117,8 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Go
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
+        map.getUiSettings().setMyLocationButtonEnabled(true);
+        map.getUiSettings().setMapToolbarEnabled(false);
         map.setOnMarkerClickListener(this);
         checkThree();
     }
