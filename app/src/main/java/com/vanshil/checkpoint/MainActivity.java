@@ -15,6 +15,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
@@ -59,7 +60,7 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Go
                 if(map != null){
                     if(firstLocation){
                         latlng = new LatLng(location.getLatitude(), location.getLongitude());
-                        map.addMarker(new MarkerOptions().position(latlng));
+                        map.addMarker(new MarkerOptions().position(latlng).icon(BitmapDescriptorFactory.fromResource(R.mipmap.location_icon_yellow)));
                         range = map.addCircle(new CircleOptions()
                                 .center(latlng)
                                 .radius(2000)
@@ -96,7 +97,8 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Go
                 if(map != null){
                     for(BusinessResponse.BusinessResult business : businesses){
                         map.addMarker(new MarkerOptions()
-                        .position(business.getLatLng()));
+                        .position(business.getLatLng())
+                        .icon(BitmapDescriptorFactory.fromResource(R.mipmap.location_icon_blue)));
                     }
                 }
             }
