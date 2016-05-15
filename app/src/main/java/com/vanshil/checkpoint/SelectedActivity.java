@@ -79,6 +79,8 @@ public class SelectedActivity extends BaseActivity {
 
                 dist = Math.sqrt(diffA*diffA + diffB*diffB);
 
+                setTitle("Checkpoint: "+business.getName());
+
 
                 if (changed == false){
                     updateRewardAmount(dist);
