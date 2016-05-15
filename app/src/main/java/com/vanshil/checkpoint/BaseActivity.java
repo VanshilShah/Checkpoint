@@ -2,6 +2,7 @@ package com.vanshil.checkpoint;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 
 /**
  * Created by Vanshil on 2016-05-15.
@@ -22,7 +23,6 @@ public class BaseActivity extends AppCompatActivity {
         if(locationListener != null){
             locationManager.register(locationListener);
         }
-
     }
 
     @Override
@@ -33,4 +33,6 @@ public class BaseActivity extends AppCompatActivity {
         }
         super.onPause();
     }
+
+
 }
