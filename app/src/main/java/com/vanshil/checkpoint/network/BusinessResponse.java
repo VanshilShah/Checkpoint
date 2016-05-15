@@ -36,12 +36,22 @@ public class BusinessResponse implements Serializable {
         @Expose
         String longitude;
 
+
+
+        @Expose
+
+        String url;
+
         public String getTimestamp() {
             return timestamp;
         }
 
         public String getName() {
             return name;
+        }
+
+        public String getUrl() {
+            return url;
         }
 
         public String getLatitude() {

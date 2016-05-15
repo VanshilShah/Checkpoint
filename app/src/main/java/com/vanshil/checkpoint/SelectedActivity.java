@@ -8,11 +8,16 @@ import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.squareup.picasso.Picasso;
+
 import com.vanshil.checkpoint.network.BusinessResponse;
+
+import javax.security.auth.callback.Callback;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,6 +35,9 @@ public class SelectedActivity extends BaseActivity {
 
     @BindView(R.id.textView2)
     TextView textView2;
+
+    @BindView(R.id.header_image)
+    ImageView headerImage;
 
     NfcAdapter mNfcAdapter;
 
@@ -49,6 +57,8 @@ public class SelectedActivity extends BaseActivity {
         setContentView(R.layout.activity_selected);
         ButterKnife.bind(this);
 
+
+
         changed = false;
 
         //initialize nfcAdapter if NFC is turned on
@@ -64,6 +74,9 @@ public class SelectedActivity extends BaseActivity {
             WriteObjectFile writeObjectFile = new WriteObjectFile(this);
             writeObjectFile.writeObject(business, "selected_business");
         }
+
+        Picasso.with(getApplicationContext()).load(business.getUrl()).into(headerImage);
+
 
         locationListener = new LocationManager.Listener() {
 
