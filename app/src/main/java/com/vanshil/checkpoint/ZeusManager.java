@@ -23,6 +23,7 @@ public class ZeusManager {
     private List<Listener> listeners;
 
     ZeusService zeusService;
+    private List<BusinessResponse.BusinessResult> businesses;
 
     public static ZeusManager getInstance(){
         if(instance == null){
@@ -45,6 +46,14 @@ public class ZeusManager {
                 .create(ZeusService.class);
 
 
+    }
+
+    public List<BusinessResponse.BusinessResult> getBusinesses(){
+        if(businesses == null){
+            businesses = new ArrayList<>();
+            loadBusinesses();
+        }
+        return businesses;
     }
 
     public void loadBusinesses(){

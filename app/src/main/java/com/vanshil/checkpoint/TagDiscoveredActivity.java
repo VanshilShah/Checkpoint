@@ -5,12 +5,17 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.vanshil.checkpoint.network.BusinessResponse;
+
 public class TagDiscoveredActivity extends AppCompatActivity {
+
+    BusinessResponse.BusinessResult businessResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tag_discovered);
+        businessResult = (BusinessResponse.BusinessResult) new WriteObjectFile(this).readObject("selected_business");
     }
 
     @Override

@@ -1,35 +1,20 @@
 package com.vanshil.checkpoint;
 
+import android.content.Context;
 import android.content.Intent;
-import android.nfc.NdefMessage;
-import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
-import android.nfc.NfcEvent;
-import android.os.Parcelable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectInput;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutput;
-import java.io.ObjectOutputStream;
-import java.io.StreamCorruptedException;
-import java.nio.charset.Charset;
-import java.util.Locale;
+import com.vanshil.checkpoint.network.BusinessResponse;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static android.nfc.NdefRecord.createMime;
-
 public class SelectedActivity extends BaseActivity {
-
+    private  static final String EXTRA_SELECTED_BUSINESS = "extra_selected_business";
     @BindView(R.id.start_run_button)
     Button startRunButton;
 
@@ -41,6 +26,13 @@ public class SelectedActivity extends BaseActivity {
 
     NfcAdapter mNfcAdapter;
 
+    private BusinessResponse.BusinessResult business;
+
+    public static void start(Context context, BusinessResponse.BusinessResult selectedBusiness){
+        Intent intent = new Intent(context, SelectedActivity.class);
+        intent.putExtra(EXTRA_SELECTED_BUSINESS, selectedBusiness);
+        context.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +46,12 @@ public class SelectedActivity extends BaseActivity {
             Toast.makeText(this, "NFC is not available", Toast.LENGTH_LONG).show();
             finish();
             return;
+        }
+
+        if(getIntent().hasExtra(EXTRA_SELECTED_BUSINESS)){
+            business = (BusinessResponse.BusinessResult) getIntent().getSerializableExtra(EXTRA_SELECTED_BUSINESS);
+            WriteObjectFile writeObjectFile = new WriteObjectFile(this);
+            writeObjectFile.writeObject(business, "selected_business");
         }
 
 

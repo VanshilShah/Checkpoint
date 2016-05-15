@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -91,10 +90,12 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Go
 
     private void checkThree(){
         if(map != null && latlng != null && businesses != null){
-            for(BusinessResponse.BusinessResult business : businesses){
+            for(int i = 0; i < businesses.size(); i++){
+                BusinessResponse.BusinessResult business = businesses.get(i);
                 map.addMarker(new MarkerOptions()
                         .position(business.getLatLng())
-                        .icon(BitmapDescriptorFactory.fromResource(R.mipmap.location_icon_blue)));
+                        .icon(BitmapDescriptorFactory.fromResource(R.mipmap.location_icon_blue))
+                        .snippet(i + ""));
             }
             if(firstLocation){
                 map.addMarker(new MarkerOptions().position(latlng).icon(BitmapDescriptorFactory.fromResource(R.mipmap.location_icon_yellow)));
@@ -121,13 +122,10 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Go
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        return false;
-    }
 
-    //SEND INFO WITH THIS INTENT FOR THE SELECTED ACTIVITY
-    public void onPointerClicked (View view){
-        Intent intent = new Intent(getApplicationContext(), SelectedActivity.class);
-        startActivity(intent);
+        SelectedActivity.start(this, businesses.get(Integer.parseInt(marker.getSnippet())));
+
+        return false;
     }
 
     @Override

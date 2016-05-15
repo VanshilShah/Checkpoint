@@ -4,12 +4,13 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Vanshil on 2016-05-15.
  */
-public class BusinessResponse {
+public class BusinessResponse implements Serializable {
     @Expose
     int total;
 
@@ -23,7 +24,7 @@ public class BusinessResponse {
     public List<BusinessResult> getResult() {
         return result;
     }
-    public class BusinessResult{
+    public class BusinessResult implements Serializable{
         @Expose
         String timestamp;
 
@@ -34,8 +35,6 @@ public class BusinessResponse {
         @Expose
         @SerializedName("geoip.location")
         String location;
-
-        LatLng latlng;
 
         public String getTimestamp() {
             return timestamp;
@@ -50,14 +49,11 @@ public class BusinessResponse {
         }
 
         public LatLng getLatLng(){
-            if(latlng == null){
-                int commaIndex = location.indexOf(",");
-                double lat = Double.parseDouble(location.substring(0, commaIndex));
-                double lon = Double.parseDouble(location.substring(commaIndex + 1));
-                System.out.println("Latitude: " + lat + " Longitude: " + lon);
-                latlng = new LatLng(lat, lon);
-            }
-            return latlng;
+            int commaIndex = location.indexOf(",");
+            double lat = Double.parseDouble(location.substring(0, commaIndex));
+            double lon = Double.parseDouble(location.substring(commaIndex + 1));
+            return new LatLng(lat, lon);
+
         }
     }
 }
