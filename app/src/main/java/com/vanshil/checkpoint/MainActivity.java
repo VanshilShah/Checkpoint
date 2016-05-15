@@ -41,6 +41,7 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Go
     Circle range;
     private boolean firstLocation = true;
     LatLng latlng;
+    Marker myLocation;
     List<BusinessResponse.BusinessResult> businesses;
 
     @Override
@@ -98,7 +99,7 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Go
                         .snippet(i + ""));
             }
             if(firstLocation){
-                map.addMarker(new MarkerOptions().position(latlng).icon(BitmapDescriptorFactory.fromResource(R.mipmap.location_icon_yellow_small)));
+                myLocation = map.addMarker(new MarkerOptions().position(latlng).icon(BitmapDescriptorFactory.fromResource(R.mipmap.location_icon_yellow_small)));
                 range = map.addCircle(new CircleOptions()
                         .center(latlng)
                         .radius(2000)
@@ -122,7 +123,9 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Go
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        SelectedActivity.start(this, businesses.get(Integer.parseInt(marker.getSnippet())));
+        if(marker.getSnippet() != null){
+            SelectedActivity.start(this, businesses.get(Integer.parseInt(marker.getSnippet())));
+        }
         return false;
     }
 
