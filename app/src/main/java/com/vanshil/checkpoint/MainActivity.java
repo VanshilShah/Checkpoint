@@ -123,7 +123,7 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Go
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        if(marker != myLocation){
+        if(marker.getSnippet() != null){
             SelectedActivity.start(this, businesses.get(Integer.parseInt(marker.getSnippet())));
         }
         return false;
