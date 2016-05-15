@@ -51,7 +51,7 @@ public class BusinessResponse implements Serializable {
         public String getLongitude() {
             return longitude;
         }
-        
+
         public LatLng getLatLng(){
             double lat = Double.parseDouble(latitude);
             double lon = Double.parseDouble(longitude);
