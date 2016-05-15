@@ -26,10 +26,14 @@ public class SelectedActivity extends BaseActivity {
     @BindView(R.id.running_destination_textview)
     TextView runningDestinationTextview;
 
+    @BindView(R.id.textView2)
+    TextView textView2;
+
     NfcAdapter mNfcAdapter;
 
     private BusinessResponse.BusinessResult business;
     private double dist;
+    private boolean changed=false;
 
     public static void start(Context context, BusinessResponse.BusinessResult selectedBusiness){
         Intent intent = new Intent(context, SelectedActivity.class);
@@ -42,6 +46,8 @@ public class SelectedActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selected);
         ButterKnife.bind(this);
+
+        changed = false;
 
         //initialize nfcAdapter if NFC is turned on
         mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
@@ -72,16 +78,19 @@ public class SelectedActivity extends BaseActivity {
                 double diffB =  (businessLon-currentLon)*111;
 
                 dist = Math.sqrt(diffA*diffA + diffB*diffB);
-                updateRewardAmount(dist);
-                updateRunningDistance(dist, business.getName());
 
 
+                if (changed == false){
+                    updateRewardAmount(dist);
+                    updateRunningDistance(dist);
+                }
+                updateCurrentDistance(dist, business.getName());
+
+                changed=true;
             }
 
 
         };
-
-
 
 //        rewardAmountTextview.setText(business.toString());
 
@@ -89,12 +98,16 @@ public class SelectedActivity extends BaseActivity {
     }
 
     public void updateRewardAmount(double distance ){
-        double amount = distance*0.05 ;
-        rewardAmountTextview.setText("You will earn: $ " +String.format("%.2f", amount));
+        double amount = distance*0.05*2 ;
+        rewardAmountTextview.setText("Reward: $ " +String.format("%.2f", amount));
     }
 
-    public void updateRunningDistance(double distance, String name){
-        runningDestinationTextview.setText(name+ ": "+ String.format("%.3f",distance) + " km");
+    public void updateRunningDistance(double distance){
+        runningDestinationTextview.setText( "Total Run Length: "+ String.format("%.3f",distance*2) + " km");
+    }
+
+    public void updateCurrentDistance(double distance, String name){
+        textView2.setText("Distance to "+name+": "+ String.format("%.3f",distance) + " km");
     }
 
 
