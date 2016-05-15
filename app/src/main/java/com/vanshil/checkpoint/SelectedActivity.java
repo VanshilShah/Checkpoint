@@ -1,17 +1,13 @@
 package com.vanshil.checkpoint;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class SelectedActivity extends AppCompatActivity {
+public class SelectedActivity extends BaseActivity {
 
     @BindView(R.id.start_run_button)
     Button startRunButton;

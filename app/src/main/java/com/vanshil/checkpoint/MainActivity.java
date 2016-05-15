@@ -1,9 +1,7 @@
 package com.vanshil.checkpoint;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.google.android.gms.maps.GoogleMap;
@@ -13,7 +11,7 @@ import com.google.android.gms.maps.model.Marker;
 
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
+public class MainActivity extends BaseActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
     public static final String TAG = "MainActivity";
 
     MapFragment mapFragment;
@@ -27,13 +25,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
     }
+
 
     @Override
     public boolean onMarkerClick(Marker marker) {
