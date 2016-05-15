@@ -42,6 +42,7 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Go
     Circle range;
     private boolean firstLocation = true;
     LatLng latlng;
+    List<BusinessResponse.BusinessResult> businesses;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,28 +58,15 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Go
         locationListener = new LocationManager.Listener() {
             @Override
             public void onLocationChanged(Location location) {
-                if(map != null){
-                    if(firstLocation){
-                        latlng = new LatLng(location.getLatitude(), location.getLongitude());
-                        map.addMarker(new MarkerOptions().position(latlng).icon(BitmapDescriptorFactory.fromResource(R.mipmap.location_icon_yellow)));
-                        range = map.addCircle(new CircleOptions()
-                                .center(latlng)
-                                .radius(2000)
-                                .strokeColor(getResources().getColor(R.color.colorAccent))
-                                .fillColor(getResources().getColor(R.color.yelllow_alpha)));
-                        seekBar.setProgress(2000);
-                        runText.setText(String.format("2.00 km"));
-                        map.animateCamera(CameraUpdateFactory.newLatLngZoom(latlng, 12));
-                        firstLocation = false;
-                    }
-                }
+                latlng = new LatLng(location.getLatitude(), location.getLongitude());
+                checkThree();
             }
         };
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 range.setRadius(progress);
-                runText.setText((int)(progress/500) + " km run");
+                runText.setText((int) (progress / 500) + " km run");
             }
 
             @Override
@@ -93,28 +81,41 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Go
         });
         zeusListener = new ZeusManager.Listener() {
             @Override
-            public void notifyBusinessLoaded(List<BusinessResponse.BusinessResult> businesses) {
-                if(map != null){
-                    for(BusinessResponse.BusinessResult business : businesses){
-                        map.addMarker(new MarkerOptions()
-                        .position(business.getLatLng())
-                        .icon(BitmapDescriptorFactory.fromResource(R.mipmap.location_icon_blue)));
-                    }
-                }
+            public void notifyBusinessLoaded(List<BusinessResponse.BusinessResult> loadedBusinesses) {
+                businesses = loadedBusinesses;
+                checkThree();
             }
         };
         zeusManager.loadBusinesses();
     }
 
+    private void checkThree(){
+        if(map != null && latlng != null && businesses != null){
+            for(BusinessResponse.BusinessResult business : businesses){
+                map.addMarker(new MarkerOptions()
+                        .position(business.getLatLng())
+                        .icon(BitmapDescriptorFactory.fromResource(R.mipmap.location_icon_blue)));
+            }
+        }
+        if(firstLocation){
+            map.addMarker(new MarkerOptions().position(latlng).icon(BitmapDescriptorFactory.fromResource(R.mipmap.location_icon_yellow)));
+            range = map.addCircle(new CircleOptions()
+                    .center(latlng)
+                    .radius(2000)
+                    .strokeColor(getResources().getColor(R.color.colorAccent))
+                    .fillColor(getResources().getColor(R.color.yelllow_alpha)));
+            seekBar.setProgress(2000);
+            runText.setText(String.format("2.00 km"));
+            map.animateCamera(CameraUpdateFactory.newLatLngZoom(latlng, 12));
+            firstLocation = false;
+        }
+    }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
         map.setOnMarkerClickListener(this);
-    }
-
-    private void addMarkers(){
-
+        checkThree();
     }
 
     @Override
