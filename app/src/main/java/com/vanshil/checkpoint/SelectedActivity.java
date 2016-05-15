@@ -3,8 +3,10 @@ package com.vanshil.checkpoint;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
+import android.net.Uri;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -99,7 +101,7 @@ public class SelectedActivity extends BaseActivity {
 
     public void updateRewardAmount(double distance ){
         double amount = distance*0.05*2 ;
-        rewardAmountTextview.setText("Reward: $ " +String.format("%.2f", amount));
+        rewardAmountTextview.setText("Reward: $ " + String.format("%.2f", amount));
     }
 
     public void updateRunningDistance(double distance){
@@ -111,10 +113,16 @@ public class SelectedActivity extends BaseActivity {
     }
 
 
-//    public void onStartButtonClick (View view){
-//        Intent intent = new Intent(getApplicationContext(), SelectedActivity.class);
-//        startActivity(intent);
-//    }
+    public void onStartButtonClick (View view){
+        String mode = "w";
+        LatLng end = business.getLatLng();
+        Uri gmmIntentUri = Uri.parse("google.navigation:q=" + end.latitude +"," + end.longitude +"&mode=" + mode);
+
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+        mapIntent.setPackage("com.google.android.apps.maps");
+
+        startActivity(mapIntent);
+    }
 
 
 }

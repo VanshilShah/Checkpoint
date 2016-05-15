@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Checkpoint</string>
     <string name="title_activity_tag_discovered">TagDiscoveredActivity</string>
-
+    <string name="google_app_id">red-equinox-131223</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 </resources>
