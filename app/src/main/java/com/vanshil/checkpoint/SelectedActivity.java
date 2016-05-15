@@ -103,15 +103,15 @@ public class SelectedActivity extends BaseActivity {
 
     public void updateRewardAmount(double distance ){
         double amount = distance*0.05*2 ;
-        rewardAmountTextview.setText("Reward: $ " + String.format("%.2f", amount));
+        rewardAmountTextview.setText("$ " + String.format("%.2f", amount));
     }
 
     public void updateRunningDistance(double distance){
-        runningDestinationTextview.setText( "Total Run Length: "+ String.format("%.3f",distance*2) + " km");
+        runningDestinationTextview.setText( String.format("%.3f",distance*2) + " km");
     }
 
     public void updateCurrentDistance(double distance, String name){
-        textView2.setText("Distance to "+name+": "+ String.format("%.3f",distance) + " km");
+        textView2.setText( String.format("%.3f",distance) + " km");
     }
 
 

@@ -18,7 +18,6 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:id="@+id/imageView"
-            android:background="@mipmap/location_icon_yellow"
             android:layout_alignParentTop="true"
             android:layout_alignRight="@+id/running_destination_textview"
             android:layout_alignEnd="@+id/running_destination_textview" />
@@ -33,42 +32,107 @@
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_horizontal">
+                android:layout_height="match_parent">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Reward"
-                    android:id="@+id/reward_amount_textview"
-                    android:layout_below="@+id/imageView"
-                    android:layout_centerHorizontal="true"
-                    android:textColor="@color/colorPrimary"
-                    android:layout_marginTop="50dp" />
+                    android:clickable="true"
+                    >
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Running Destination"
-                    android:id="@+id/running_destination_textview"
-                    android:layout_below="@+id/imageView"
-                    android:layout_centerHorizontal="true"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:clickable="false"
-                    android:layout_margin="5dp" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Reward:"
+                        android:textSize="18dp"
+                        android:padding="10dp"
+                        android:clickable="false"
+                        android:phoneNumber="false" />
 
-                <TextView
-                    android:layout_width="wrap_content"
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="15.8 km"
+                        android:layout_marginLeft="10dp"
+                        android:id="@+id/reward_amount_textview"
+                        android:textColor="@android:color/black"
+                        android:textSize="20dp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/colorPrimary"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"/>
+
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Medium Text"
-                    android:id="@+id/textView2"
-                    android:layout_below="@+id/running_destination_textview"
-                    android:layout_alignLeft="@+id/running_destination_textview"
-                    android:layout_alignStart="@+id/running_destination_textview"
-                    android:layout_margin="5dp" />
+                    android:clickable="true"
+                    >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Total Run Length:"
+                        android:textSize="18dp"
+                        android:padding="10dp"
+                        android:clickable="false"
+                        android:phoneNumber="false" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="15.8 km"
+                        android:layout_marginLeft="10dp"
+                        android:id="@+id/running_destination_textview"
+                        android:textColor="@android:color/black"
+                        android:textSize="20dp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/colorPrimary"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"/>
+
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Remaining Distance to destination:"
+                        android:textSize="18dp"
+                        android:padding="10dp"
+                        android:clickable="false"
+                        android:phoneNumber="false" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="15.8 km"
+                        android:layout_marginLeft="10dp"
+                        android:id="@+id/textView2"
+                        android:textColor="@android:color/black"
+                        android:textSize="20dp" />
+                </LinearLayout>
+
+
+
             </LinearLayout>
 
             <Button
@@ -79,7 +143,8 @@
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:clickable="true"
-                android:layout_margin="50dp" />
+                android:onClick="onStartButtonClick"
+                android:layout_margin="10dp" />
 
         </RelativeLayout>
     </LinearLayout>
