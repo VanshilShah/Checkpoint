@@ -1,7 +1,10 @@
 package com.vanshil.checkpoint;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -36,4 +39,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     public boolean onMarkerClick(Marker marker) {
         return false;
     }
+
+    public void onTempButtonClick (View view){
+        Intent intent = new Intent(getApplicationContext(), SelectedActivity.class);
+        startActivity(intent);
+    }
+
+
 }

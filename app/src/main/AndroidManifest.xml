@@ -14,6 +14,7 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAhXHRihcNSG9Wb9Fr_Y0W7Y2QAVxYRCw8"/>
+
         <activity android:name=".MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,7 +22,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SelectedActivity" />
+
+        <activity android:name=".SelectedActivity" >
+
+        </activity>
+
+
+
         <activity android:name=".HistoryActivity" >
         </activity>
 
