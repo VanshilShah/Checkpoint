@@ -43,7 +43,7 @@ public class LocationManager {
         final LocationListener locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
-                Log.d(TAG, "Location Found: " + location.getLatitude() + " , " + location.getLongitude());
+                Log.d(TAG, "Location Found: " + location.getLatitude() + ", " + location.getLongitude());
                 notifyLocationChanged(location);
             }
         };

@@ -9,10 +9,13 @@ import android.support.v7.app.AppCompatActivity;
 public class BaseActivity extends AppCompatActivity {
     LocationManager.Listener locationListener;
     LocationManager locationManager;
+    ZeusManager.Listener zeusListener;
+    ZeusManager zeusManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         locationManager = locationManager.getInstance(this);
+        zeusManager = ZeusManager.getInstance();
     }
 
     @Override
@@ -22,6 +25,9 @@ public class BaseActivity extends AppCompatActivity {
         if(locationListener != null){
             locationManager.register(locationListener);
         }
+        if(zeusListener != null){
+            zeusManager.register(zeusListener);
+        }
 
     }
 
@@ -30,6 +36,9 @@ public class BaseActivity extends AppCompatActivity {
         LocationManager.getInstance(this).onPause();
         if(locationListener != null){
             locationManager.unregister(locationListener);
+        }
+        if(zeusListener != null){
+            zeusManager.unregister(zeusListener);
         }
         super.onPause();
     }
