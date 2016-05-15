@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.NFC" />
 
     <application
         android:allowBackup="true"
@@ -13,21 +14,17 @@
         android:theme="@style/AppTheme" >
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAhXHRihcNSG9Wb9Fr_Y0W7Y2QAVxYRCw8"/>
+            android:value="AIzaSyAhXHRihcNSG9Wb9Fr_Y0W7Y2QAVxYRCw8" />
 
         <activity android:name=".MainActivity" >
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <activity android:name=".SelectedActivity" >
-
         </activity>
-
-
 
         <activity android:name=".HistoryActivity" >
         </activity>
@@ -35,6 +32,22 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
+        <activity
+            android:name=".TagDiscoveredActivity"
+            android:label="@string/title_activity_tag_discovered" >
+
+            <intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+
+
+
+        </activity>
+
+
     </application>
 
 </manifest>
