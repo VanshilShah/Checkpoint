@@ -9,9 +9,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.squareup.picasso.Picasso;
 import com.vanshil.checkpoint.network.BusinessResponse;
 
 import butterknife.BindView;
@@ -30,6 +32,9 @@ public class SelectedActivity extends BaseActivity {
 
     @BindView(R.id.textView2)
     TextView textView2;
+
+    @BindView(R.id.header_image)
+    ImageView headerImage;
 
     NfcAdapter mNfcAdapter;
 
@@ -65,6 +70,9 @@ public class SelectedActivity extends BaseActivity {
             writeObjectFile.writeObject(business, "selected_business");
         }
 
+        Picasso.with(getApplicationContext()).load(business.getUrl()).into(headerImage);
+
+
         locationListener = new LocationManager.Listener() {
 
             @Override
@@ -80,6 +88,8 @@ public class SelectedActivity extends BaseActivity {
                 double diffB =  (businessLon-currentLon)*111;
 
                 dist = Math.sqrt(diffA*diffA + diffB*diffB);
+
+                setTitle("Checkpoint: "+business.getName());
 
 
                 if (changed == false){
@@ -127,15 +137,15 @@ public class SelectedActivity extends BaseActivity {
     }
     public void updateRewardAmount(double distance ){
         double amount = distance*0.05*2 ;
-        rewardAmountTextview.setText("Reward: $ " + String.format("%.2f", amount));
+        rewardAmountTextview.setText("$ " + String.format("%.2f", amount));
     }
 
     public void updateRunningDistance(double distance){
-        runningDestinationTextview.setText( "Total Run Length: "+ String.format("%.3f",distance*2) + " km");
+        runningDestinationTextview.setText( String.format("%.3f",distance*2) + " km");
     }
 
     public void updateCurrentDistance(double distance, String name){
-        textView2.setText("Distance to "+name+": "+ String.format("%.3f",distance) + " km");
+        textView2.setText( String.format("%.3f",distance) + " km");
     }
 
 
